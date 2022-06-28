@@ -5,11 +5,25 @@
         <link rel="stylesheet" href="search.css">
     </head>
     <body>
-        <img href="CS50.png">
-        <form action="https://google.com/search">
-            <input type="text" name="q">
-            <input type="hidden" name="tbm" value="isch">
-            <input type="submit" value="Google Search">
-        </form>
+
+        <div class = "navbar">
+            <a href="index.html"><img src="CS50.png" height="40px" width="auto"></a>
+            <div>
+                <a href="image_search.html">Image search</a>
+                <a href="advanced_search.html">Advanced search</a>
+            </div>
+        </div>
+        <div class="body">
+            <img src="CS50.png" height="200px" width="auto">
+            <h2 class="blue">Images</h4>
+            <form action="https://google.com/search">
+                <input type="text" name="q" id="main-search">
+                <div id="search-buttons">
+                    <input type="hidden" name="tbm" value="isch">
+                    <input type="submit" value="Image Search">
+                </div>
+            </form>
+        </div>
+
     </body>
 </html>

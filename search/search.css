@@ -5,6 +5,7 @@ body {
 .navbar {
     display: flex;
     justify-content: space-between;
+    margin: 0 auto;
 }
 
 .navbar>div>a {
@@ -17,6 +18,7 @@ a {
 
 body {
     height: 60vh;
+    padding: 10px 50px;
 }
 
 .body{
@@ -24,13 +26,54 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
+#advanced-body{
+    align-items:flex-start;
+}
+
+#advanced-search{
+    width: min(80vw, 800px);
+    display: grid;
+    grid-template: auto/ 30% 70%;
+    row-gap: 10px;
+}
+
+#advanced-button{
+    background-color: #4d90fe;
+    color:white;
+    background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+    border: 1px solid #3079ed;
+    padding: 10px;
+
+}
+
+.blue {
+    color: #4d90fe;
+    margin-top: 0px;
+}
 
 #main-search{
-    width: 50vw;
+    width: max(400px, 80vw);
+    max-width: 800px;
     height: 40px;
     border-radius: 20px;
     border-width: 1px;
-    border-color: 
+    padding-left: 30px; 
+}
+
+#search-buttons{
+    display: flex;
+    justify-content: center;
+}
+
+#search-buttons>*{
+    margin: 20px;
+    font-size: 1.2rem;
+    background-color: #dadcde;
+    border: 1px solid #999a9b;
+    padding:10px;
+    color: #3c4043;
 }

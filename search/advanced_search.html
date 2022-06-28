@@ -5,13 +5,25 @@
         <link rel="stylesheet" href="search.css">
     </head>
     <body>
-        Advanced search
-        <form action="https://google.com/search">
-            <label>All these words:</label><input type="text" name="as_q">
-            <label>This exact word or phrase:</label><input type="text" name="as_epq">
-            <label>Any of these words:</label><input type="text" name="as_oq">
-            <label>None of these words:</label><input type="text" name="as_eq">
-            <input type="submit" value="Google Search">
-        </form>
+        <div class = "navbar">
+            <a href="index.html"><img src="CS50.png" height="40px" width="auto"></a>
+            <div>
+                <a href="image_search.html">Image search</a>
+                <a href="advanced_search.html">Advanced search</a>
+            </div>
+        </div>
+        <div id="advanced-body">
+            <h3>Advanced search</h3>
+            <hr>
+            <h5>Find pages with:</h5>
+            <form action="https://google.com/search" id="advanced-search">
+                <label>All these words:</label><input type="text" name="as_q">
+                <label>This exact word or phrase:</label><input type="text" name="as_epq">
+                <label>Any of these words:</label><input type="text" name="as_oq">
+                <label>None of these words:</label><input type="text" name="as_eq">
+                <div></div>
+                <input type="submit" value="Advanced Search" id="advanced-button">
+            </form>
+        </div>
     </body>
 </html>
