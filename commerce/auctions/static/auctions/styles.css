@@ -8,6 +8,10 @@ body {
 }
 
 
+li {
+    list-style: none;
+}
+
 .listing {
     display:flex;
     margin: 20px;
