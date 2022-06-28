@@ -4,12 +4,19 @@ body {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin: 0 auto;
 }
 
 .navbar>div>a {
     margin: 20px;
+}
+.navbar>a {
+    margin-right: 60px;
+}
+
+.navbar>a>img {
+    height: 25px;
 }
 
 a {
