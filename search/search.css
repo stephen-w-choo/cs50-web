@@ -1,11 +1,22 @@
+@font-face {
+    font-family: Roboto-Light;
+    src: url(Roboto-Light.ttf);
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(Roboto-Regular.ttf);
+}
+
 body {
-    font-family: sans-serif;
+    font-family: Roboto;
 }
 
 .navbar {
     display: flex;
     justify-content: flex-end;
     margin: 0 auto;
+    font-family: Roboto-Light;
 }
 
 .navbar>div>a {
@@ -37,6 +48,31 @@ body {
     margin: 0 auto;
 }
 
+#main-search{
+    width: max(400px, 80vw);
+    max-width: 800px;
+    height: 40px;
+    border-radius: 20px;
+    border-width: 1px;
+    padding-left: 30px; 
+}
+
+#search-buttons{
+    display: flex;
+    justify-content: center;
+}
+
+#search-buttons>*{
+    margin: 20px;
+    font-size: 1.2rem;
+    background-color: #dadcde;
+    border: 1px solid #999a9b;
+    padding:10px;
+    color: #3c4043;
+    font-family: Roboto;
+}
+
+
 #advanced-body{
     align-items:flex-start;
 }
@@ -62,25 +98,3 @@ body {
     margin-top: 0px;
 }
 
-#main-search{
-    width: max(400px, 80vw);
-    max-width: 800px;
-    height: 40px;
-    border-radius: 20px;
-    border-width: 1px;
-    padding-left: 30px; 
-}
-
-#search-buttons{
-    display: flex;
-    justify-content: center;
-}
-
-#search-buttons>*{
-    margin: 20px;
-    font-size: 1.2rem;
-    background-color: #dadcde;
-    border: 1px solid #999a9b;
-    padding:10px;
-    color: #3c4043;
-}
