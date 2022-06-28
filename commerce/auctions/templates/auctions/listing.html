@@ -1,0 +1,86 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="listing">
+    <div class = "listing-picture">
+        <img src = "{{ item.image }}">
+    </div>
+
+    <div class="listing-description">
+        <h3>
+            {{ item.title }}
+        </h3>
+        <li>
+            {{ item.item_type }}
+        </li>
+        <li>
+            {{ item.description }}
+        </li>
+    </div>
+    <div class="listing-owner">
+        <h4>
+            <strong>${{ item.currentprice }}</strong>
+        <h4>
+        <li>
+            {{ item.owner }}
+        </li>
+        {% if status == "open" %}
+        <li>
+            <form action= "{% url 'watch' auction_id=auction_id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Add to watch list</button>
+            </form>
+        </li>
+        {% endif %}
+    </div>
+</div>
+
+{% if status == "winner" %}
+
+<p> You've won the auction!</p>
+
+{% elif status == "owner" %}
+
+<p> <a href = "{% url 'close_auction' auction_id=auction_id %}">Close the auction and accept the highest bid</a></p>
+
+{% elif status == "ownersold" %}
+<p> You've closed this auction</p>
+
+{% elif status == "sold" %}
+<p> This auction has closed </p>
+
+{% elif status == "open" %}
+<p>
+    <form action = "{% url 'bid' %}" method="post">
+        {% csrf_token %}
+        {{ bid_form }}
+        <button type="submit">Submit bid</button>
+    </form>
+</p>
+
+{% else %}
+
+<p> You must login to bid on auctions </p>
+
+{% endif %}
+
+{% for comment in comments %}
+    <div class="comment-box">
+        <div>{{comment.comment}}</div>
+        <div>
+            <p>{{comment.user}}</p>
+            <p>{{comment.time}}</p>
+        </div>
+    </div>
+{% endfor %}
+
+
+<form action="{% url 'comment' auction_id=auction_id %}" method="post">
+    {% csrf_token %}
+    {{commentform}}
+<button type=submit>Submit comment</button>
+</form>
+test
+
+{% endblock %}

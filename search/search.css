@@ -1,0 +1,36 @@
+body {
+    font-family: sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar>div>a {
+    margin: 20px;
+}
+
+a {
+    text-decoration: none;   
+}
+
+body {
+    height: 60vh;
+}
+
+.body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;justify-content: center;
+}
+
+
+#main-search{
+    width: 50vw;
+    height: 40px;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: 
+}
