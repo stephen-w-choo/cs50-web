@@ -1,12 +1,16 @@
 {% extends "encyclopedia/layout.html" %}
 
-{% block title %}<
+{% block title %}
     Encyclopedia
 {% endblock %}
 
+
+
 {% block body %}
+<a href="{% url 'wiki:editpage-arg' page_id=entry %}">Edit this page</a>
+
     {% autoescape off %}
     {{ article }}
     {% endautoescape %}
-    <a href="{% url 'wiki:editpage-arg' page_id=entry %}">Edit page</a>
+
 {% endblock %}

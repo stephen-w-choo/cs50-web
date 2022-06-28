@@ -1,6 +1,6 @@
 {% extends "encyclopedia/layout.html" %}
 
-{% block title %}<
+{% block title %}
     Encyclopedia
 {% endblock %}
 
@@ -12,5 +12,4 @@
             <li><a href="{% url 'wiki:url_entry' entry=entry %}">{{ entry }}</a></li>
         {% endfor %}
     </ul>
-    {{ request }}
 {% endblock %}
