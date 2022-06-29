@@ -89,13 +89,13 @@ def create_auction(request):
         })
     
     if request.method == "POST":
-        auction_form = CreateAuction(request.POST)
+        auction_form = CreateAuction(request.POST, request.FILES)
         if auction_form.is_valid():
             auction_form = auction_form.save(commit=False)
-            auction_form.owner = request.user.id
+            auction_form.owner = request.user
             auction_form.save()
-            return HttpResponse(auction_form)
-        return HttpResponse("not okay")
+            return redirect("index")
+        return HttpResponse(auction_form)
 
 class CommentForm(forms.Form):
     comment= forms.CharField(widget=forms.Textarea)
@@ -193,3 +193,24 @@ def close_auction(request, auction_id):
     if request.user == auction_item.owner:
         auction_item.sold = True
         auction_item.save()
+
+
+def categories(request):
+    all_items = models.AuctionItem.objects.all()
+    categories= set()
+    for item in all_items:
+        categories.add(item.item_type)
+    return render(request, "auctions/categories.html", {
+        "categories": categories
+    }
+    )
+
+def category(request, item_category):
+    all_items = models.AuctionItem.objects.all()
+    item_list = []
+    for item in all_items:
+        if item.item_type == item_category:
+            item_list.append(item)
+    return render(request, "auctions/category.html", {
+        "item_list": item_list
+    })

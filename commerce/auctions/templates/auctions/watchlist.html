@@ -1,23 +1,22 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    Welcome, {{ id }}
-    <h2>Watchlist</h2>
+    <h2>Watchlist for {{ user.username }}</h2>
         {% for item in watchlist %}
             <div class="listing">
-                <div class = "listing-picture">
-                    <a href = "{% url 'listing' auction_id=item.id %}">
-                        <img src = "{{ item.image }}">
-                    </a>
-                </div>
-            
+                <a href = "{% url 'listing' auction_id=item.id %}">
+                    <div class = "listing-picture">
+                        <img src = "{{ item.image.url }}">
+                    </div>
+                </a>
+
                 <div class="listing-description">
                     <h3>
                         {{ item.title }}
                     </h3>
-                    <li>
+                    <h5>
                         {{ item.item_type }}
-                    </li>
+                    </h5>
                     <li>
                         {{ item.description }}
                     </li>
@@ -37,5 +36,4 @@
         No active listings
             
         {% endfor %}
-    TODO
 {% endblock %}

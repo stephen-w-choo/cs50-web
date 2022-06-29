@@ -6,19 +6,26 @@
         {% for item in active_listings %}
 
             <div class="listing">
-                <div class = "listing-picture">
-                    <a href = "{% url 'listing' auction_id=item.id %}">
-                        <img src = "{{ item.image }}">
-                    </a>
-                </div>
+                <a href = "{% url 'listing' auction_id=item.id %}">
+                    <div class = "listing-picture">
+                        {%if item.image %}
+                            <img src = "{{ item.image.url }}">
+                        {% else %}
+                            <h6> No image</h6>
+                        {%endif%}
+
+                    </div>
+                </a>
             
                 <div class="listing-description">
-                    <h3>
-                        {{ item.title }}
-                    </h3>
-                    <li>
+                    <a href="{% url 'listing' auction_id=item.id %}">
+                        <h3>
+                            {{ item.title }}
+                        </h3>
+                    </a>
+                    <h5>
                         {{ item.item_type }}
-                    </li>
+                    </h5>
                     <li>
                         {{ item.description }}
                     </li>

@@ -19,9 +19,27 @@ li {
 }
 
 .listing-picture{
-    min-width: 200px;
+    width: 210px;
+    height: 210px;
     margin:10px;
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.listing-picture>img{
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+h6 {
+    text-align: center;
+}
+
 
 .listing-description{
     display:flex;
@@ -34,3 +52,9 @@ li {
     display:flex;
     flex-direction:column;
 }
+
+.column-flex {
+    display:flex;
+    flex-direction: column;
+}
+

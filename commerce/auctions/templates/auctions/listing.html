@@ -4,7 +4,7 @@
 
 <div class="listing">
     <div class = "listing-picture">
-        <img src = "{{ item.image }}">
+        <img src = "{{ item.image.url }}" >
     </div>
 
     <div class="listing-description">
@@ -59,28 +59,36 @@
     </form>
 </p>
 
+
+
 {% else %}
 
 <p> You must login to bid on auctions </p>
 
 {% endif %}
-
-{% for comment in comments %}
+<h3> Comments </h3>
+{% for comment in comments %}    
     <div class="comment-box">
-        <div>{{comment.comment}}</div>
+        <h5>
+            {{comment.user}}
+        </h5>
         <div>
-            <p>{{comment.user}}</p>
-            <p>{{comment.time}}</p>
+            {{comment.time}}
         </div>
+        <div>{{comment.comment}}</div>
+
     </div>
 {% endfor %}
 
 
-<form action="{% url 'comment' auction_id=auction_id %}" method="post">
+{% if status == "open" %}
+<form action="{% url 'comment' auction_id=auction_id %}" method="post" id>
     {% csrf_token %}
+    <div class="column-flex">
     {{commentform}}
-<button type=submit>Submit comment</button>
+    </div>
+    <button type=submit>Submit comment</button>
 </form>
-test
+{% endif %}
 
 {% endblock %}

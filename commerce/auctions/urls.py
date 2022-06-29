@@ -1,5 +1,6 @@
 from django.urls import path
 
+
 from . import views
 
 urlpatterns = [
@@ -13,5 +14,7 @@ urlpatterns = [
     path("watch", views.watch, name="watchlist"),
     path("watch/<int:auction_id>", views.watch, name="watch"), 
     path("bid", views.bid, name = "bid"),
-    path("close_auction/<int:auction_id>", views.close_auction, name="close_auction")
+    path("close_auction/<int:auction_id>", views.close_auction, name="close_auction"),
+    path("categories", views.categories, name = "categories"),
+    path("category/<str:item_category>", views.category, name = "category")
 ]

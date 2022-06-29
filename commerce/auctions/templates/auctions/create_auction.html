@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<form action="{% url 'create_auction'%}" method="post">
+<form action="{% url 'create_auction'%}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 <button type="submit">Submit</button>
