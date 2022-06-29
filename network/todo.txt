@@ -1,0 +1,27 @@
+
+    User model:
+        models.ManyToManyField('self', symmetrical=False, through='Relationship', on_delete=models.CASCADE).
+
+Intermediary
+
+    class Relationship(models.Model):
+        following = models.ForeignKey(User, related_name='following')
+        followed_by = models.ForeignKey(User, related_name='followed_by')
+
+
+New post
+    
+    Post model:
+        poster = models.ForeignKey(User, on_delete=models.CASCADE)
+            Many to one relationship with a user
+        content
+            
+        date
+
+        liked_by = models.ManyToManyField(User)
+            Many to many relationship with users
+
+
+    post modelform
+
+    
