@@ -131,6 +131,11 @@ def listing(request, auction_id):
             status = "open"
         else:
             status = "guest"
+
+        if request.user in listing.watching.all():
+            watching = True
+        else:
+            watching = False
       
         comments = models.AuctionComment.objects.filter(item=auction_id)
         return render(request, "auctions/listing.html", {
@@ -140,7 +145,8 @@ def listing(request, auction_id):
             "commentform": CommentForm(),
             "bid_form": AuctionBid(initial={"auction_item": auction_id}),
             "auction_id": auction_id,
-            "status": status
+            "status": status,
+            "watching": watching
         })
 
     if request.method == "POST":
@@ -186,7 +192,7 @@ def bid(request):
                 bid_data.time = datetime.datetime.now()
                 bid_data.save()
                 return HttpResponse("bid complete")
-            return HttpResponse("Bid invalid, please input a price higher than current bid")
+            return HttpResponse("<h4>Bid invalid, please input a price higher than current bid</h4>")
 
 def close_auction(request, auction_id):
     auction_item = get_object_or_404(models.AuctionItem, id=auction_id)
@@ -202,8 +208,7 @@ def categories(request):
         categories.add(item.item_type)
     return render(request, "auctions/categories.html", {
         "categories": categories
-    }
-    )
+    })
 
 def category(request, item_category):
     all_items = models.AuctionItem.objects.all()

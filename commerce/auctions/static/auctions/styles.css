@@ -58,3 +58,16 @@ h6 {
     flex-direction: column;
 }
 
+.row-flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-box{
+    min-width: 600px;
+    margin-bottom: 30px;
+    background-color: rgb(224, 224, 224);
+    border-radius: 4px;
+    padding: 5px;
+}
+

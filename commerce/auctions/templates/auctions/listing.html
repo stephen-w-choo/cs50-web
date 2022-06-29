@@ -2,6 +2,12 @@
 
 {% block body %}
 
+<h4>
+    {%if watching %}
+    This item is on your watchlist
+    {%endif%}
+</h4>
+
 <div class="listing">
     <div class = "listing-picture">
         <img src = "{{ item.image.url }}" >
@@ -26,15 +32,24 @@
             {{ item.owner }}
         </li>
         {% if status == "open" %}
-        <li>
-            <form action= "{% url 'watch' auction_id=auction_id %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Add to watch list</button>
-            </form>
-        </li>
+
         {% endif %}
     </div>
+
 </div>
+<li>
+    <form action= "{% url 'watch' auction_id=auction_id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">
+            {%if watching %}
+                Remove from watchlist
+            {% else %}
+                Add to watchlist
+            {% endif %}
+        </button>
+    </form>
+</li>
+
 
 {% if status == "winner" %}
 
@@ -69,11 +84,13 @@
 <h3> Comments </h3>
 {% for comment in comments %}    
     <div class="comment-box">
-        <h5>
-            {{comment.user}}
-        </h5>
-        <div>
-            {{comment.time}}
+        <div class="row-flex">
+            <h5>
+                {{comment.user}}
+            </h5>
+            <div>
+                {{comment.time}}
+            </div>
         </div>
         <div>{{comment.comment}}</div>
 
