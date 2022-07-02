@@ -7,7 +7,7 @@ class User(AbstractUser):
     pass
 
 class Relationship(models.Model):
-    following = models.ForeignKey(User, related_name="following", on_delete=models.CASCADE)
+    profile = models.ForeignKey(User, related_name="profile", on_delete=models.CASCADE)
     followed_by = models.ForeignKey(User, related_name="followed_by", on_delete=models.CASCADE)
 
 class Post(models.Model):
