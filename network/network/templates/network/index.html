@@ -6,4 +6,24 @@
         {{ post_form }}
         <button type="submit">Make a post</button>
     </form>
+
+    {{ list_all }}
+    {%for post in list_all %}
+    <div class = "card text-bg-light mb-3 comment">
+        <div class = "card-body">
+            <h5 class="card-title">
+                {{post.poster}}
+            </h5>
+            <p class="card-text">
+                {{post.content}}
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            {{post.time}}
+            {{post.liked_by.count}}
+        </div>
+        
+    </div>
+    {% endfor %}
+
 {% endblock %}
