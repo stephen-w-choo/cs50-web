@@ -32,23 +32,23 @@
             {{ item.owner }}
         </li>
         {% if status == "open" %}
-
+        <li>
+            <form action= "{% url 'watch' auction_id=auction_id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    {%if watching %}
+                        Remove from watchlist
+                    {% else %}
+                        Add to watchlist
+                    {% endif %}
+                </button>
+            </form>
+        </li>
         {% endif %}
     </div>
 
 </div>
-<li>
-    <form action= "{% url 'watch' auction_id=auction_id %}" method="post">
-        {% csrf_token %}
-        <button type="submit">
-            {%if watching %}
-                Remove from watchlist
-            {% else %}
-                Add to watchlist
-            {% endif %}
-        </button>
-    </form>
-</li>
+
 
 
 {% if status == "winner" %}
@@ -63,9 +63,14 @@
 <p> You've closed this auction</p>
 
 {% elif status == "sold" %}
+    
 <p> This auction has closed </p>
 
 {% elif status == "open" %}
+
+    {% if highestbidder %}
+    <h4> You are currently the highest bidder!</h4>
+    {% endif %}
 <p>
     <form action = "{% url 'bid' %}" method="post">
         {% csrf_token %}
@@ -98,7 +103,7 @@
 {% endfor %}
 
 
-{% if status == "open" %}
+{% if status == "open" or status == "owner"  %}
 <form action="{% url 'comment' auction_id=auction_id %}" method="post" id>
     {% csrf_token %}
     <div class="column-flex">

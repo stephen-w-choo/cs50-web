@@ -119,6 +119,8 @@ def listing(request, auction_id):
     if request.method == "GET":
         listing = get_object_or_404(models.AuctionItem, id=auction_id)
 
+        highestbidder = False
+
         if request.user.id == listing.owner.id:
             status = "owner"
             if listing.sold == True:
@@ -129,6 +131,9 @@ def listing(request, auction_id):
                 status = "winner"
         elif request.user.is_authenticated:
             status = "open"
+            if listing.highest_bidder:
+                if request.user.id == listing.highest_bidder.id:
+                    highestbidder = True
         else:
             status = "guest"
 
@@ -146,6 +151,7 @@ def listing(request, auction_id):
             "bid_form": AuctionBid(initial={"auction_item": auction_id}),
             "auction_id": auction_id,
             "status": status,
+            "highestbidder": highestbidder,
             "watching": watching
         })
 
@@ -191,14 +197,17 @@ def bid(request):
                 bid_data.bidder = request.user
                 bid_data.time = datetime.datetime.now()
                 bid_data.save()
-                return HttpResponse("bid complete")
-            return HttpResponse("<h4>Bid invalid, please input a price higher than current bid</h4>")
+                return redirect("listing", auction_id = bid_data.auction_item.id)
+            return render(request, "auctions/error.html", {
+                "error": "Bid invalid, please input a price higher than current bid"
+                })
 
 def close_auction(request, auction_id):
     auction_item = get_object_or_404(models.AuctionItem, id=auction_id)
     if request.user == auction_item.owner:
         auction_item.sold = True
         auction_item.save()
+    return redirect("listing", auction_id = auction_item.id)
 
 
 def categories(request):
