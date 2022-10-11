@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
           document.querySelector('#email-error').style.display = 'none';
           document.querySelector('#email-success').style.display = 'block';
         }
-
       })
     return false
   }
@@ -165,7 +164,6 @@ function load_mailbox(mailbox) {
       reply_button.addEventListener("click", ()=> {
         compose_email(email)
       })
-
       email_box.append(email_sender, email_time, email_subject, email_body, reply_button, archive_button)
       email_view.append(email_box)
   });

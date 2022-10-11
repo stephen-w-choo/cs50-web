@@ -65,11 +65,12 @@ body {
 #search-buttons>*{
     margin: 20px;
     font-size: 1.2rem;
-    background-color: #dadcde;
-    border: 1px solid #999a9b;
+    background-color: #ececec;
+    border: 1px solid #cecece;
     padding:10px;
     color: #3c4043;
     font-family: Roboto;
+    border-radius: 8px;
 }
 
 
