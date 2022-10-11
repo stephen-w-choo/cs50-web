@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
-function compose_email(email = null) {
+function compose_email() {
 
   // Show compose view and hide other views
   document.querySelector('#inbox-view').style.display = 'none';
@@ -48,19 +48,22 @@ function compose_email(email = null) {
   document.querySelector('#email-error').style.display = 'none';
   document.querySelector('#email-success').style.display = 'none';
 
-  // If function is provided with email object, prepopulate fields
-  if (email) {
-    document.querySelector('#compose-recipients').value = email.sender
-    document.querySelector('#compose-subject').value = `Re: ${email.subject}`
-    document.querySelector('#compose-body').value = ` \n \n On ${email.timestamp}, ${email.sender} wrote: \n ${email.body}`
-  }
-
-  // If no argument is provided clear out composition fields
-  else {
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
-  }
+
+}
+
+function reply(email) {
+  document.querySelector('#inbox-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#email-error').style.display = 'none';
+  document.querySelector('#email-success').style.display = 'none';
+  
+  document.querySelector('#compose-recipients').value = email.sender
+  document.querySelector('#compose-subject').value = `Re: ${email.subject}`
+  document.querySelector('#compose-body').value = ` \n \n On ${email.timestamp}, ${email.sender} wrote: \n ${email.body}`
 }
 
 function load_mailbox(mailbox) {
@@ -91,7 +94,12 @@ function load_mailbox(mailbox) {
           console.log(mail_id)
         })
         email_box.append(email_sender, email_time, email_subject)
-        email_box.classList.add("p-3", "mb-2", "bg-light", "text-dark", "border", "email-box")
+        if (email.read == true){
+          email_box.classList.add("p-3", "mb-2", "bg-grey", "text-dark", "border", "email-box")
+        }
+        else {
+          email_box.classList.add("p-3", "mb-2", "bg-light", "text-dark", "border", "email-box")
+        }
         inbox_view.appendChild(email_box)
       }
   })
@@ -163,7 +171,7 @@ function load_mailbox(mailbox) {
 
       reply_button.innerText = "Reply"
       reply_button.addEventListener("click", ()=> {
-        compose_email(email)
+        reply(email)
       })
 
       email_box.append(email_sender, email_time, email_subject, email_body, reply_button, archive_button)
