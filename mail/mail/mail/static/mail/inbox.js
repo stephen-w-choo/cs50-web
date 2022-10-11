@@ -56,9 +56,9 @@ function compose_email(email = null) {
 
   // If no argument is provided clear out composition fields
   else {
-    document.querySelector('#compose-recipients').value = '';
-    document.querySelector('#compose-subject').value = '';
-    document.querySelector('#compose-body').value = '';
+  document.querySelector('#compose-recipients').value = '';
+  document.querySelector('#compose-subject').value = '';
+  document.querySelector('#compose-body').value = '';
   }
 }
 
