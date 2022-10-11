@@ -2,3 +2,20 @@
     max-width: 50rem;
     margin: 0 auto;
 }
+
+#post_form {
+    margin: 0 auto;
+    width: 400px;
+    max-width: 50%;
+}
+
+#post_form label {
+    margin: 10px auto;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#post_button_container {
+    display: flex;
+    justify-content: center;
+}

@@ -13,7 +13,7 @@ import datetime
 def index(request):
     list_all = Post.objects.all().order_by("-time")
     return render(request, "network/index.html", {
-        "post_form":New_Post,
+        "post_form": New_Post,
         "list_all": list_all
     })
 
@@ -27,10 +27,11 @@ def make_post(request):
             received_post.save()
             return redirect("index")
 
-def profile(request):
-    list_all = Post.objects.all()
-    return render(request, "network/all_posts.html", {
-        "list_all": list_all
+def profile(request, profile_id):
+    # get all posts by user
+    user_posts = Post.objects.filter(poster_id=profile_id)
+    return render(request, "network/profile.html", {
+        "user_posts": user_posts
     })
 
 

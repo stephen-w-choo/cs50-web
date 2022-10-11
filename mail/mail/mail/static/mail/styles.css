@@ -9,3 +9,7 @@ textarea {
 #email-error, #email-success {
     display: none;
 }
+
+.bg-grey {
+    background-color: rgb(204, 204, 204);
+}

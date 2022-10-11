@@ -1,17 +1,8 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    <form id = "post_form" class = "card text-bg-light" action="{%url 'make_post' %}" method="post">
-        {% csrf_token %}
-        {{ post_form }}
-
-        <div class = "card-footer text-muted" id = "post_button_container">
-            <button class = "btn btn-primary" id = "make_post" type="submit">Make a post</button>
-        </div>
-    </form>
-
     <h3> Your feed </h3>
-    {%for post in list_all %}
+    {%for post in user_posts %}
     <div class = "card text-bg-light mb-3 comment">
         <div class = "card-body">
             <h5 class="card-title">

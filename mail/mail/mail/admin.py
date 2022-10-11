@@ -3,3 +3,4 @@ from mail import models
 
 # Register your models here.
 admin.site.register(models.Email)
+admin.site.register(models.User)
