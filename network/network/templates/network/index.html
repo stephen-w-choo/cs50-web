@@ -15,7 +15,7 @@
     <div class = "card text-bg-light mb-3 comment">
         <div class = "card-body">
             <h5 class="card-title">
-                {{post.poster}}
+                <a href = "{% url 'profile' profile_id=post.poster_id %}"> {{post.poster}} </a>
             </h5>
             <p class="card-text">
                 {{post.content}}
@@ -25,7 +25,6 @@
             {{post.time}}
             {{post.liked_by.count}} likes
         </div>
-        
     </div>
     {% endfor %}
 
