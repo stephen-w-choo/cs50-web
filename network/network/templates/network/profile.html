@@ -1,23 +1,36 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    <h3> Your feed </h3>
-    {%for post in user_posts %}
-    <div class = "card text-bg-light mb-3 comment">
-        <div class = "card-body">
-            <h5 class="card-title">
-                {{post.poster}}
-            </h5>
-            <p class="card-text">
-                {{post.content}}
-            </p>
+
+
+
+{% if user_posts %}
+    <h3> Posts by {{ user_posts.first.poster }} </h3>
+    {% if following %}
+    <a href = "{% url 'follow' profile_id=user_posts.first.poster_id %}"> Unfollow </a>
+    {% else %}
+    <a href = "{% url 'follow' profile_id=user_posts.first.poster_id %}"> Follow </a>
+    {% endif %}
+
+    {% for post in user_posts %}
+        <div class = "card text-bg-light mb-3 comment">
+            <div class = "card-body">
+                <h5 class="card-title">
+                    {{post.poster}}
+                </h5>
+                <p class="card-text">
+                    {{post.content}}
+                </p>
+            </div>
+            <div class="card-footer text-muted">
+                {{post.time}}
+                {{post.liked_by.count}} likes
+            </div>
         </div>
-        <div class="card-footer text-muted">
-            {{post.time}}
-            {{post.liked_by.count}} likes
-        </div>
-        
-    </div>
     {% endfor %}
+
+{% else %}
+    <h3> No posts by this user or user does not exist </h3>
+{% endif %}
 
 {% endblock %}

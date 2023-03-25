@@ -29,11 +29,35 @@ def make_post(request):
 
 def profile(request, profile_id):
     # get all posts by user
-    user_posts = Post.objects.filter(poster_id=profile_id)
+    user_posts = Post.objects.filter(poster_id=profile_id).order_by("-time")
+    following = False
+    if Relationship.objects.filter(user_id=request.user, following_user_id=User.objects.get(pk=profile_id)).exists():
+        following = True
     return render(request, "network/profile.html", {
-        "user_posts": user_posts
+        "user_posts": user_posts,
+        "following": following
     })
 
+def follow(request, profile_id):
+    # follow another user
+    current_relationship = Relationship.objects.filter(user_id=request.user, following_user_id=User.objects.get(pk=profile_id))
+    # check if already following
+    if current_relationship.exists():
+        # unfollow and return early
+        current_relationship.delete()
+        return redirect("profile", profile_id=profile_id)
+
+    new_relationship = Relationship(user_id=request.user, following_user_id=User.objects.get(pk=profile_id))
+    new_relationship.save()
+    return redirect("profile", profile_id=profile_id)
+
+def following(request):
+    # get all posts by users that the current user follows
+    user_following_ids = request.user.following.all().values("following_user_id")
+    posts = Post.objects.filter(poster_id__in=user_following_ids).order_by("-time")
+    return render(request, "network/following.html", {
+        "following_posts": posts
+    })
 
 def login_view(request):
     if request.method == "POST":

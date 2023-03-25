@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Relationship, Post
+from .models import User, Post
 
 class New_Post(forms.ModelForm):
     def __init__(self, *args, **kwargs):
