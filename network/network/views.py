@@ -31,11 +31,30 @@ def profile(request, profile_id):
     # get all posts by user
     user_posts = Post.objects.filter(poster_id=profile_id).order_by("-time")
     following = False
-    if Relationship.objects.filter(user_id=request.user, following_user_id=User.objects.get(pk=profile_id)).exists():
+    self_profile = False
+
+    # check if the current user is the profile user
+    if profile_id == request.user.id:
+        self_profile = True
+
+    # check if the current user is following the profile user
+    current_relationship = Relationship.objects.filter(user_id=request.user, following_user_id=User.objects.get(pk=profile_id))
+    if current_relationship.exists():
         following = True
+
+    # get the number of followers
+    n_followers = Relationship.objects.filter(following_user_id=profile_id).count()
+    print(n_followers)
+    # get the number that the user is following
+    n_following = Relationship.objects.filter(user_id=profile_id).count()
+
+
     return render(request, "network/profile.html", {
         "user_posts": user_posts,
-        "following": following
+        "following": following,
+        "self_profile": self_profile,
+        "n_following": n_following,
+        "n_followers": n_followers
     })
 
 def follow(request, profile_id):
@@ -109,4 +128,3 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
-

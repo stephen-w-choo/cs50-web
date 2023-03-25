@@ -6,15 +6,26 @@
 
 {% if user_posts %}
     <h3> Posts by {{ user_posts.first.poster }} </h3>
-    {% if following %}
-    <a href = "{% url 'follow' profile_id=user_posts.first.poster_id %}"> Unfollow </a>
-    {% else %}
-    <a href = "{% url 'follow' profile_id=user_posts.first.poster_id %}"> Follow </a>
+    {% if not self_profile %}
+      {% if following %}
+        <a href = "{% url 'follow' profile_id=user_posts.first.poster_id %}"> Unfollow </a>
+      {% else %}
+        <a href = "{% url 'follow' profile_id=user_posts.first.poster_id %}"> Follow </a>
+      {% endif %}
     {% endif %}
 
+    <div>
+      <span class="profile-stats-item profile-stats-item-label">Followers</span>
+      <span class="profile-stats-item profile-stats-item-number">{{ n_followers }}</span>
+    </div>
+    <div>
+      <span class="profile-stats-item profile-stats-item-label">Following</span>
+      <span class="profile-stats-item profile-stats-item-number">{{ n_following }}</span>
+    </div>
+
     {% for post in user_posts %}
-        <div class = "card text-bg-light mb-3 comment">
-            <div class = "card-body">
+        <div class="card text-bg-light mb-3 comment">
+            <div class="card-body">
                 <h5 class="card-title">
                     {{post.poster}}
                 </h5>
@@ -28,7 +39,6 @@
             </div>
         </div>
     {% endfor %}
-
 {% else %}
     <h3> No posts by this user or user does not exist </h3>
 {% endif %}
