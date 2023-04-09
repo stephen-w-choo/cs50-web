@@ -6,26 +6,15 @@
         {{ post_form }}
 
         <div class = "card-footer text-muted" id = "post_button_container">
-            <button class = "btn btn-primary" id = "make_post" type="submit">Make a post</button>
+          <button class = "btn btn-primary" id = "make_post" type="submit">Make a post</button>
         </div>
     </form>
 
     <h3> Your feed </h3>
-    {%for post in list_all %}
-    <div class = "card text-bg-light mb-3 comment">
-        <div class = "card-body">
-            <h5 class="card-title">
-                <a href = "{% url 'profile' profile_id=post.poster_id %}"> {{post.poster}} </a>
-            </h5>
-            <p class="card-text">
-                {{post.content}}
-            </p>
-        </div>
-        <div class="card-footer text-muted">
-            {{post.time}}
-            {{post.liked_by.count}} likes
-        </div>
-    </div>
+    {% for post in page_posts %}
+      {% include "network/components/post.html" with post=post %}
     {% endfor %}
+
+    {% include "network/components/paginator.html" with page_posts=page_posts %}
 
 {% endblock %}

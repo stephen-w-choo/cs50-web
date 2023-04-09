@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
@@ -12,9 +13,24 @@ import datetime
 
 def index(request):
     list_all = Post.objects.all().order_by("-time")
+
+    # use paginator to split posts into pages
+    paginator = Paginator(list_all, 10)
+
+    # check if the request includes a page number
+    page_number = request.GET.get('page')
+    # if not, set page number to 1
+    if page_number is None:
+        page_number = 1
+    # get the page
+    page_obj = paginator.get_page(page_number)
+    # get the total number of pages
+    total_pages = paginator.num_pages
+
     return render(request, "network/index.html", {
         "post_form": New_Post,
-        "list_all": list_all
+        "page_posts": page_obj,
+        "total_pages": total_pages
     })
 
 def make_post(request):

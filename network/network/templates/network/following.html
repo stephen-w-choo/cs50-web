@@ -3,20 +3,9 @@
 {% block body %}
 
 {% for post in following_posts %}
-    <div class = "card text-bg-light mb-3 comment">
-        <div class = "card-body">
-            <h5 class="card-title">
-                {{post.poster}}
-            </h5>
-            <p class="card-text">
-                {{post.content}}
-            </p>
-        </div>
-        <div class="card-footer text-muted">
-            {{post.time}}
-            {{post.liked_by.count}} likes
-        </div>
-    </div>
+  {% include "network/components/post.html" with post=post %}
 {% endfor %}
+
+{% include "network/components/paginator.html" with page_posts=following_posts %}
 
 {% endblock %}

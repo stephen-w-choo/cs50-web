@@ -1,0 +1,33 @@
+<div class = "card text-bg-light mb-3 comment">
+  <div class = "card-body">
+      <h5 class="card-title">
+          <a href = "{% url 'profile' profile_id=post.poster_id %}"> {{post.poster}} </a>
+      </h5>
+      <p class="card-text" id={{post.id}}  >
+          {{post.content}}
+      </p>
+  </div>
+  <div class="card-footer text-muted">
+      {{post.time}}
+      {{post.liked_by.count}} likes
+      <!-- button to edit post -->
+      {% if post.poster_id == request.user.id %}
+        <!-- change the card-text area into a text window filled with post.content -->
+        <button class="btn btn-primary" id="edit_post" type="submit">Edit</button>
+      {% endif %}
+  </div>
+
+</div>
+
+
+<script>
+  // when the edit button is clicked, change the card-text area into a text window filled with post.content
+  document.getElementById("edit_post").addEventListener("click", function(){
+    // get the post id
+    var post_id = document.getElementById("post_id").value;
+    // get the post content
+    var post_content = document.getElementById("post_content").value;
+    // change the card-text area into a text window filled with post.content
+    document.getElementById(post_id).innerHTML = "<textarea id='post_content' name='post_content' rows='4' cols='50'>" + post_content + "</textarea>";
+  });
+</script>
