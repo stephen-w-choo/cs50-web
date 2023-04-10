@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -42,6 +42,50 @@ def make_post(request):
             received_post.time = datetime.datetime.now()
             received_post.save()
             return redirect("index")
+
+def posts(request, post_id):
+    # get the post
+    if request.method == "GET":
+        post = get_object_or_404(Post, pk=post_id)
+        # check if the user has already liked the post
+        if request.user in post.liked_by.all():
+            # unlike the post
+            post.liked_by.remove(request.user)
+            return JsonResponse(
+                {
+                    "message": "Post unliked successfully.",
+                    "likes": post.liked_by.count()
+                },
+                status=201
+            )
+        else:
+            # like the post
+            post.liked_by.add(request.user)
+            return JsonResponse(
+                {
+                    "message": "Post liked successfully.",
+                    "likes": post.liked_by.count()
+                },
+                status=201
+            )
+
+    if request.method == "POST":
+        post = get_object_or_404(Post, pk=post_id)
+        # check if the request is to edit the content or to like the post
+        print(request.POST)
+        if "content" in request.POST:
+            # edit the content
+            post.content = request.POST["content"]
+            post.save()
+            return JsonResponse(
+                {
+                    "content": post.content,
+                    "message": "Post updated successfully."
+                },
+                status=201
+            )
+        return JsonResponse({"message": "Unsuccessful"}, status=201)
+
 
 def profile(request, profile_id):
     # get all posts by user

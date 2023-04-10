@@ -1,33 +1,42 @@
+
 <div class = "card text-bg-light mb-3 comment">
   <div class = "card-body">
-      <h5 class="card-title">
-          <a href = "{% url 'profile' profile_id=post.poster_id %}"> {{post.poster}} </a>
-      </h5>
-      <p class="card-text" id={{post.id}}  >
-          {{post.content}}
-      </p>
+    <h5 class="card-title">
+      <a href = "{% url 'profile' profile_id=post.poster_id %}"> {{post.poster}} </a>
+    </h5>
+    <p class="card-text" id="{{post.id}}">
+      {{post.content}}
+    </p>
+    <form style="display: none" id="form-{{post.id}}" class="card text-bg-light" method="post">
+      {% csrf_token %}
+      <textarea
+        class="form-control"
+        id="form-content-{{post.id}}"
+        name="content"
+        rows="3"
+      >{{post.content}}</textarea>
+      <button type="submit" class="btn btn-primary save-button" data-id="{{post.id}}" id="save-{{post.id}}">Save</button>
+    </form>
+    {% if post.poster_id == request.user.id %}
+      <!-- edit button that's shown by default -->
+      <button class="btn btn-primary edit-button" data-id="{{post.id}}" id="edit-{{post.id}}">Edit</button>
+      <!-- form that's hidden by default -->
+    {% endif %}
   </div>
   <div class="card-footer text-muted">
-      {{post.time}}
-      {{post.liked_by.count}} likes
-      <!-- button to edit post -->
-      {% if post.poster_id == request.user.id %}
-        <!-- change the card-text area into a text window filled with post.content -->
-        <button class="btn btn-primary" id="edit_post" type="submit">Edit</button>
+    {{post.time}}
+    <span id="like-count-{{post.id}}">{{post.liked_by.count}}</span> likes
+    <button id="like-{{post.id}}">
+      {% if request.user in post.liked_by.all %}
+        Unlike
+      {% else %}
+        Like
       {% endif %}
+    </button>
   </div>
-
 </div>
 
-
 <script>
-  // when the edit button is clicked, change the card-text area into a text window filled with post.content
-  document.getElementById("edit_post").addEventListener("click", function(){
-    // get the post id
-    var post_id = document.getElementById("post_id").value;
-    // get the post content
-    var post_content = document.getElementById("post_content").value;
-    // change the card-text area into a text window filled with post.content
-    document.getElementById(post_id).innerHTML = "<textarea id='post_content' name='post_content' rows='4' cols='50'>" + post_content + "</textarea>";
-  });
+  editPost("{{post.id}}");
+  likePost("{{post.id}}")
 </script>
