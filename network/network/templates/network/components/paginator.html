@@ -1,4 +1,7 @@
-<nav aria-label="Page navigation example">
+<nav
+aria-label="Page navigation example"
+class="d-flex justify-content-center"
+>
   <ul class="pagination">
     {% if page_posts.has_previous %}
       <li class="page-item">
@@ -22,13 +25,13 @@
     {% endif %}
     {% for i in page_posts.paginator.page_range %}
       {% if page_posts.number == i %}
-        <li class="page-item active"><a class="page-link" href="{% url 'index' %}?pages={{ page_posts.number }}">{{i}}</a></li>
+        <li class="page-item active"><a class="page-link" href="{% url 'index' %}?pages={{ i }}">{{i}}</a></li>
       {% else %}
-        <li class="page-item"><a class="page-link" href="{% url 'index' %}?pages={{page_posts.number}}">{{i}}</a></li>
+        <li class="page-item"><a class="page-link" href="{% url 'index' %}?pages={{ i }}">{{i}}</a></li>
       {% endif %}
     {% endfor %}
     {% if page_posts.has_next %}
-      <li class="page-item disabled">
+      <li class="page-item">
         <a
         class="page-link"
         href="{% url 'index' %}?pages={{page_posts.next_page_number}}"

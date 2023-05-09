@@ -2,6 +2,7 @@
 
 {% block body %}
 
+<h3 class="text-center"> Posts from users you're following </h3>
 {% for post in following_posts %}
   {% include "network/components/post.html" with post=post %}
 {% endfor %}

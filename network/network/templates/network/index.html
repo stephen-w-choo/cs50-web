@@ -10,7 +10,8 @@
       </div>
     </form>
 
-    <h3> Your feed </h3>
+
+    <h3 class="text-center"> Your feed </h3>
     {% for post in page_posts %}
       {% include "network/components/post.html" with post=post %}
     {% endfor %}

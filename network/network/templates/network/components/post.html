@@ -36,7 +36,11 @@
   </div>
 </div>
 
+{% if post.poster_id == request.user.id %}
 <script>
   editPost("{{post.id}}");
+</script>
+{% endif %}
+<script>
   likePost("{{post.id}}")
 </script>

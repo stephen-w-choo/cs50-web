@@ -18,14 +18,17 @@ def index(request):
     paginator = Paginator(list_all, 10)
 
     # check if the request includes a page number
-    page_number = request.GET.get('page')
+    page_number = request.GET.get('pages')
     # if not, set page number to 1
+    print(request.GET)
     if page_number is None:
         page_number = 1
     # get the page
+    print(page_number)
     page_obj = paginator.get_page(page_number)
     # get the total number of pages
     total_pages = paginator.num_pages
+    print(page_obj.has_next())
 
     return render(request, "network/index.html", {
         "post_form": New_Post,
@@ -36,6 +39,8 @@ def index(request):
 def make_post(request):
     received_post = New_Post(request.POST)
     if request.method == "POST":
+        # check that the poster and the user are the same
+
         if received_post.is_valid():
             received_post = received_post.save(commit=False)
             received_post.poster = request.user
@@ -71,8 +76,10 @@ def posts(request, post_id):
 
     if request.method == "POST":
         post = get_object_or_404(Post, pk=post_id)
-        # check if the request is to edit the content or to like the post
-        print(request.POST)
+        # check if the user is the poster
+        if post.poster != request.user:
+            return JsonResponse({"message": "Forbidden"}, status=401)
+
         if "content" in request.POST:
             # edit the content
             post.content = request.POST["content"]
